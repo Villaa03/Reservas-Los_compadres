@@ -1,5 +1,3 @@
--- Ejecutar en el SQL Editor de Supabase
-
 CREATE TABLE IF NOT EXISTS reservas (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   created_at TIMESTAMPTZ DEFAULT NOW(),
