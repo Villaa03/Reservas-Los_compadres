@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReservationProvider } from './context/ReservationContext';
 import { useReservation } from './hooks/useReservation';
 import Header from './components/Header';
@@ -65,7 +65,10 @@ const ReservationAppContent = () => {
 
       {/* Subtle Footer */}
       <footer className="w-full py-4 text-center text-[10px] text-neutral-500 font-sans tracking-wider border-t border-white/5 bg-black/20">
-        © {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME || "Los Compadres Rooftop"}. Todos los derechos reservados.
+        <p>© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME || "Los Compadres Rooftop"}. Todos los derechos reservados.</p>
+        <Link to="/admin" className="text-neutral-600 hover:text-gold-400 transition-colors mt-1 inline-block">
+          Admin
+        </Link>
       </footer>
     </div>
   );

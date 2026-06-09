@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useReservation } from '../hooks/useReservation';
 import { formatIsoToSpanish } from '../utils/dateHelpers';
 import { formatTime12h } from '../utils/timeHelpers';
@@ -44,9 +44,14 @@ export const SummaryStep = () => {
       estado: 'pendiente',
     };
 
-    await saveReserva(reservaData);
-    setSaved(true);
+    const result = await saveReserva(reservaData);
     setSaving(false);
+
+    if (!result.success) {
+      return;
+    }
+
+    setSaved(true);
 
     const waLink = generateWhatsAppLink({
       persons,

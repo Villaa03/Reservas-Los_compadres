@@ -1,6 +1,5 @@
 import { useReservation } from '../hooks/useReservation';
 import { Link } from 'react-router-dom';
-import { RESTAURANT_SETTINGS } from '../constants/settings';
 
 export const WelcomeStep = () => {
   const { nextStep } = useReservation();
@@ -8,18 +7,11 @@ export const WelcomeStep = () => {
   return (
     <div className="w-full max-w-xl mx-auto px-4 py-8 flex flex-col items-center text-center animate-fade-in">
       {/* Visual Header Banner */}
-      <div className="relative w-full h-48 md:h-64 rounded-2xl overflow-hidden mb-8 glass-panel flex flex-col justify-end p-6 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-900 via-neutral-950 to-black">
-        {/* Subtle decorative lights representing rooftop night lights */}
-        <div className="absolute top-4 left-6 w-2.5 h-2.5 rounded-full bg-amber-400/60 blur-[1px] animate-pulse"></div>
-        <div className="absolute top-8 left-16 w-3 h-3 rounded-full bg-yellow-400/50 blur-[2px] animate-pulse [animation-delay:0.3s]"></div>
-        <div className="absolute top-3 left-32 w-2 h-2 rounded-full bg-amber-500/70 blur-[1px] animate-pulse [animation-delay:0.7s]"></div>
-        <div className="absolute top-6 left-48 w-3 h-3 rounded-full bg-yellow-300/40 blur-[2px] animate-pulse [animation-delay:0.2s]"></div>
-        <div className="absolute top-4 right-12 w-2.5 h-2.5 rounded-full bg-amber-400/60 blur-[1px] animate-pulse [animation-delay:0.5s]"></div>
-        
+      <div className="relative w-full rounded-2xl overflow-hidden mb-8 glass-panel flex flex-col items-center justify-center py-8 md:py-10 px-6 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-neutral-900 via-neutral-950 to-black">
         {/* Floating gradient glow behind text */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-64 h-32 bg-amber-500/10 blur-3xl rounded-full"></div>
+        <div className="absolute inset-0 bg-amber-500/5 blur-3xl rounded-full"></div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 text-center">
           <span className="inline-block px-3 py-1 rounded-full text-[10px] font-semibold font-outfit uppercase tracking-widest bg-amber-500/10 text-gold-300 border border-amber-500/20 mb-2">
             Restaurante & Terraza Bar
           </span>
@@ -45,14 +37,14 @@ export const WelcomeStep = () => {
         </p>
 
         {/* Schedule Info Box */}
-        <div className="w-full bg-black/30 rounded-xl p-3 border border-white/5 mb-8 text-left">
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-gold-400 mb-1 flex items-center gap-1.5">
+        <div className="w-full bg-black/30 rounded-xl p-4 border border-white/5 mb-8 text-center">
+          <h4 className="text-xs font-semibold uppercase tracking-wider text-gold-400 mb-2 flex items-center justify-center gap-1.5">
             <span>🕒</span> Horario de Atención:
           </h4>
-          <p className="text-xs text-neutral-300">
-            • Lunes, Miér, Jue, Dom: 12:00 PM - 10:00 PM <br />
-            • Viernes y Sábado: 12:00 PM - 11:00 PM <br />
-            <span className="text-amber-400">• Martes: Sin servicio (Cerrado)</span>
+          <p className="text-xs text-neutral-300 leading-relaxed">
+            Lunes, Miércoles, Jueves y Domingo — 12:00 PM a 10:00 PM <br />
+            Viernes y Sábado — 12:00 PM a 11:00 PM <br />
+            <span className="text-amber-400">Martes — Sin servicio (Cerrado)</span>
           </p>
         </div>
 

@@ -6,4 +6,4 @@ export const formatTime12h = (time24) => {
   return `${hours12}:${minutesStr} ${ampm}`;
 };
 
-export const formatTimeDisplay = (time24) => formatTime12h(time24);
+

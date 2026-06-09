@@ -72,7 +72,7 @@ export const getAvailableDates = (daysCount = 30) => {
     const isoString = formatDateISO(nextDate);
     const formatted = formatDateSpanish(nextDate);
     
-    let label = "";
+    let label;
     if (i === 0) {
       label = "Hoy";
     } else if (i === 1) {

@@ -65,7 +65,7 @@ export const MisReservasPage = () => {
             <div className="w-full mt-6">
               {reservas.length === 0 ? (
                 <div className="text-center py-6">
-                  <span className="text-3 block mb-2">😕</span>
+                  <span className="text-3xl block mb-2">😕</span>
                   <p className="text-sm text-neutral-400">
                     No encontramos reservas activas con ese número.
                   </p>

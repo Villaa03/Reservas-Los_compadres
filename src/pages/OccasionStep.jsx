@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import { useReservation } from '../hooks/useReservation';
 import { OCCASIONS } from '../constants/occasions';
 import { PAYMENT_INFO } from '../constants/payment';
@@ -13,6 +13,14 @@ export const OccasionStep = () => {
     prevStep,
   } = useReservation();
 
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
   const isCumpleanos = occasion === 'Cumpleaños';
 
   const handleSelect = (id) => {
@@ -20,7 +28,7 @@ export const OccasionStep = () => {
     if (selectedOccasion) {
       setOccasionSelected(selectedOccasion.label);
       if (selectedOccasion.id !== 'cumpleanos') {
-        setTimeout(() => nextStep(), 250);
+        timerRef.current = setTimeout(() => nextStep(), 250);
       }
     }
   };

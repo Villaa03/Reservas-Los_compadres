@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useReservation } from '../hooks/useReservation';
 import { MENU_CATEGORIES, MENU_ITEMS } from '../constants/menu';
 
@@ -107,26 +107,20 @@ export const PreOrderStep = () => {
                     : 'bg-neutral-900/40 border-white/5 hover:border-white/10'
                 }`}
               >
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-lg overflow-hidden relative flex-shrink-0 bg-neutral-950 border border-white/5">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    loading="lazy"
-                  />
-                  {qty > 0 && (
-                    <div className="absolute top-1 right-1 w-6 h-6 rounded-full bg-gold-500 text-neutral-950 text-[11px] font-bold flex items-center justify-center font-outfit shadow-md">
-                      {qty}
-                    </div>
-                  )}
-                </div>
+                {qty > 0 && (
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gold-500 text-neutral-950 text-sm font-bold flex items-center justify-center font-outfit shadow-md mt-1">
+                    {qty}
+                  </div>
+                )}
 
                 <div className="flex-1 flex flex-col justify-between min-w-0">
                   <div>
                     <h4 className="text-sm font-bold text-white truncate font-outfit">{item.name}</h4>
-                    <p className="text-[10px] text-neutral-400 line-clamp-2 mt-0.5 font-sans leading-tight">
-                      {item.description}
-                    </p>
+                    {item.description && (
+                      <p className="text-[10px] text-neutral-400 mt-0.5 font-sans leading-tight">
+                        {item.description}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex justify-between items-center mt-2">

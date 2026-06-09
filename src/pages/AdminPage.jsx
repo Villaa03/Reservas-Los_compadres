@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ADMIN_PASSWORD, ADMIN_SESSION_KEY } from '../constants/admin';
 import {
@@ -11,14 +11,8 @@ import {
   consolidarPedidos,
 } from '../services/reservasService';
 import { formatTime12h } from '../utils/timeHelpers';
+import { formatDateISO } from '../utils/dateHelpers';
 import { isSupabaseConfigured } from '../lib/supabase';
-
-const formatDateISO = (d) => {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
-};
 
 const formatDateDisplay = (iso) => {
   const [y, m, d] = iso.split('-');

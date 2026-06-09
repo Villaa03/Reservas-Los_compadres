@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useReservation } from '../hooks/useReservation';
-import { formatIsoToSpanish } from '../utils/dateHelpers';
+import { formatIsoToSpanish, formatDateISO } from '../utils/dateHelpers';
 import { formatTime12h } from '../utils/timeHelpers';
 import { fetchReservasByDate, countReservasPorHora } from '../services/reservasService';
 
@@ -27,10 +27,20 @@ const TIME_SECTIONS = [
   },
 ];
 
+const isToday = (dateISO) => dateISO === formatDateISO(new Date());
+
+const isPastSlot = (slot) => {
+  const [h, m] = slot.split(':').map(Number);
+  const now = new Date();
+  return now.getHours() > h || (now.getHours() === h && now.getMinutes() >= m);
+};
+
 export const TimeStep = () => {
   const { date, time, setTimeSelected, nextStep, prevStep } = useReservation();
   const [reservasPorHora, setReservasPorHora] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const todaySelected = isToday(date);
 
   useEffect(() => {
     if (!date) return;
@@ -42,12 +52,16 @@ export const TimeStep = () => {
   }, [date]);
 
   const handleSelectTime = (slot) => {
+    if (todaySelected && isPastSlot(slot)) return;
     const count = reservasPorHora[slot] || 0;
     if (count >= MAX_RESERVAS_POR_HORA) return;
     setTimeSelected(slot);
   };
 
-  const isSlotAgotado = (slot) => (reservasPorHora[slot] || 0) >= MAX_RESERVAS_POR_HORA;
+  const isSlotDisabled = (slot) => {
+    if (todaySelected && isPastSlot(slot)) return true;
+    return (reservasPorHora[slot] || 0) >= MAX_RESERVAS_POR_HORA;
+  };
 
   return (
     <div className="w-full max-w-xl mx-auto px-4 py-8 flex flex-col items-center animate-slide-in-right">
@@ -85,16 +99,17 @@ export const TimeStep = () => {
                   {section.slots.map((slot) => {
                     const label12h = formatTime12h(slot);
                     const isSelected = time === slot;
-                    const agotado = isSlotAgotado(slot);
+                    const disabled = isSlotDisabled(slot);
+                    const pasado = todaySelected && isPastSlot(slot);
 
                     return (
                       <button
                         key={slot}
                         type="button"
                         onClick={() => handleSelectTime(slot)}
-                        disabled={agotado}
+                        disabled={disabled}
                         className={`py-3 rounded-xl border flex flex-col items-center justify-center transition-all duration-300 ${
-                          agotado
+                          disabled
                             ? 'bg-neutral-950/60 border-neutral-800/50 text-neutral-600 cursor-not-allowed opacity-60'
                             : isSelected
                               ? 'bg-gold-950/40 border-gold-400 shadow-[0_0_12px_rgba(220,163,60,0.15)] scale-102 font-bold text-gold-300 cursor-pointer active:scale-95'
@@ -104,10 +119,10 @@ export const TimeStep = () => {
                         <span className="text-xs font-bold font-outfit">{label12h.split(' ')[0]}</span>
                         <span
                           className={`text-[9px] uppercase tracking-wider font-semibold mt-0.5 ${
-                            agotado ? 'text-red-400/70' : 'text-neutral-500'
+                            disabled ? 'text-red-400/70' : 'text-neutral-500'
                           }`}
                         >
-                          {agotado ? 'Agotado' : label12h.split(' ')[1]}
+                          {pasado ? 'Pasado' : disabled ? 'Agotado' : label12h.split(' ')[1]}
                         </span>
                       </button>
                     );

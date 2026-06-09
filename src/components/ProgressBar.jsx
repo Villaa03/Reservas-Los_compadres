@@ -1,4 +1,3 @@
-import React from 'react';
 import { useReservation } from '../hooks/useReservation';
 
 const STEP_NAMES = [
@@ -13,7 +12,7 @@ const STEP_NAMES = [
 ];
 
 export const ProgressBar = () => {
-  const { step, goToStep, isStepValid } = useReservation();
+  const { step, goToStep } = useReservation();
 
   const totalSteps = 8;
   const progressPercent = ((step - 1) / (totalSteps - 1)) * 100;

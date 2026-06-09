@@ -1,4 +1,3 @@
-import React from 'react';
 import { useReservation } from '../hooks/useReservation';
 
 export const PersonsStep = () => {

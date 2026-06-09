@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
-import { fetchFechasBloqueadas, countReservasPorHora, fetchReservasByDate, updateReserva, cancelReserva } from '../services/reservasService';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { fetchReservaById, fetchFechasBloqueadas, countReservasPorHora, fetchReservasByDate, updateReserva, cancelReserva } from '../services/reservasService';
 import { formatIsoToSpanish } from '../utils/dateHelpers';
 import { formatTime12h } from '../utils/timeHelpers';
 import { getAvailableDates } from '../utils/dateHelpers';
@@ -27,7 +27,7 @@ const TIME_SECTIONS = [
 const ConfirmDialog = ({ message, onConfirm, onCancel, loading }) => (
   <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4">
     <div className="glass-panel-gold rounded-2xl p-6 max-w-sm w-full text-center">
-      <span className="text-4 block mb-3">⚠️</span>
+      <span className="text-4xl block mb-3">⚠️</span>
       <p className="text-sm text-white font-outfit font-semibold mb-6">{message}</p>
       <div className="flex gap-3">
         <button
@@ -54,7 +54,7 @@ const ConfirmDialog = ({ message, onConfirm, onCancel, loading }) => (
 const SuccessDialog = ({ message, onClose }) => (
   <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 px-4">
     <div className="glass-panel-gold rounded-2xl p-6 max-w-sm w-full text-center">
-      <span className="text-4 block mb-3">✅</span>
+      <span className="text-4xl block mb-3">✅</span>
       <p className="text-sm text-white font-outfit font-semibold mb-4">{message}</p>
       <button
         type="button"
@@ -89,22 +89,14 @@ export const MisReservasDetail = () => {
       setLoading(false);
       return;
     }
-    let cancelled = false;
-    supabase
-      .from('reservas')
-      .select('*')
-      .eq('id', id)
-      .single()
-      .then(({ data, error: err }) => {
-        if (cancelled) return;
-        if (err || !data) {
-          setError(true);
-        } else {
-          setReserva(data);
-        }
-        setLoading(false);
-      });
-    return () => { cancelled = true; };
+    fetchReservaById(id).then(({ data, error: err }) => {
+      if (err || !data) {
+        setError(true);
+      } else {
+        setReserva(data);
+      }
+      setLoading(false);
+    });
   }, [id]);
 
   useEffect(() => {
@@ -299,7 +291,7 @@ export const MisReservasDetail = () => {
       <main className="flex-1 max-w-xl w-full mx-auto px-4 py-8">
         <div className="glass-panel-gold rounded-2xl p-6 md:p-8 flex flex-col">
           <div className="text-center mb-6">
-            <span className="text-4 block mb-2">🥂</span>
+            <span className="text-4xl block mb-2">🥂</span>
             <h2 className="text-xl font-outfit font-bold text-white">
               {isCancelled ? 'Reserva Cancelada' : 'Reserva Confirmada'}
             </h2>

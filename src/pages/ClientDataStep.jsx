@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useReservation } from '../hooks/useReservation';
 
 export const ClientDataStep = () => {

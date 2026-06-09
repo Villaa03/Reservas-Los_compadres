@@ -64,6 +64,24 @@ export const saveReserva = async (reserva) => {
   return { success: true, data };
 };
 
+export const fetchReservaById = async (id) => {
+  if (!isSupabaseConfigured) {
+    warnNotConfigured();
+    return { data: null, error: 'Supabase no configurado' };
+  }
+  const { data, error } = await supabase
+    .from('reservas')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error al cargar reserva:', error);
+    return { data: null, error: error.message };
+  }
+  return { data, error: null };
+};
+
 export const updateReservaEstado = async (id, estado) => {
   if (!isSupabaseConfigured) return { success: false };
   const { error } = await supabase
