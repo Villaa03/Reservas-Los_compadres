@@ -44,7 +44,6 @@ export const TimeStep = () => {
 
   useEffect(() => {
     if (!date) return;
-    setLoading(true);
     fetchReservasByDate(date).then((reservas) => {
       setReservasPorHora(countReservasPorHora(reservas));
       setLoading(false);
