@@ -30,10 +30,10 @@ CREATE INDEX IF NOT EXISTS idx_reservas_fecha ON reservas (fecha);
 ALTER TABLE reservas ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fechas_bloqueadas ENABLE ROW LEVEL SECURITY;
 
--- Políticas para reservas (acceso público con IDs UUID)
--- Los IDs UUID son únicos y no adivinables, lo que permite a los clientes
--- acceder a sus reservas sin autenticación. Ajustar RLS si se requiere
--- mayor seguridad en producción.
+-- Políticas para reservas
+-- Los clientes pueden leer, crear y actualizar sus reservas.
+-- No se permite DELETE público: la app cambia estado a 'cancelada' en vez de borrar.
+-- Para borrar registros, usar el panel de Supabase directamente.
 CREATE POLICY "Lectura pública reservas" ON reservas
   FOR SELECT USING (true);
 
@@ -42,9 +42,6 @@ CREATE POLICY "Inserción pública reservas" ON reservas
 
 CREATE POLICY "Actualización pública reservas" ON reservas
   FOR UPDATE USING (true);
-
-CREATE POLICY "Eliminación pública reservas" ON reservas
-  FOR DELETE USING (true);
 
 -- Políticas para fechas bloqueadas
 CREATE POLICY "Lectura pública fechas_bloqueadas" ON fechas_bloqueadas
