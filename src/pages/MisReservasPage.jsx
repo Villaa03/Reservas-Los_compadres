@@ -21,7 +21,7 @@ export const MisReservasPage = () => {
     try {
       const data = await fetchReservasByPhone(phone.trim());
       setReservas(data);
-    } catch (err) {
+    } catch {
       setError('Error al buscar reservas. Verifica tu conexión e intenta de nuevo.');
       setReservas([]);
     }

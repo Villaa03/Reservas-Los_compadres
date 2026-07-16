@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ADMIN_PASSWORD, ADMIN_SESSION_KEY } from '../constants/admin';

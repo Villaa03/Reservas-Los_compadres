@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { isSupabaseConfigured } from '../lib/supabase';

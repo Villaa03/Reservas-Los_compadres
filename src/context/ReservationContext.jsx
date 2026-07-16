@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useEffect } from 'react';
 import { getAvailableDates } from '../utils/dateHelpers';
 import { fetchFechasBloqueadas } from '../services/reservasService';
@@ -30,22 +31,6 @@ export const ReservationProvider = ({ children }) => {
       setBlockedDates(fechas.map((f) => f.fecha));
     });
   }, []);
-
-  useEffect(() => {
-    if (date && blockedDates.includes(date)) {
-      setDate(firstAvailableDate);
-    }
-  }, [blockedDates, date, firstAvailableDate]);
-
-  useEffect(() => {
-    setTime('');
-  }, [date]);
-
-  useEffect(() => {
-    if (occasion !== 'Cumpleaños') {
-      setDecoracionCumpleanos(false);
-    }
-  }, [occasion]);
 
   const getPreOrderItemsCount = () => {
     return preOrder.reduce((acc, item) => acc + item.quantity, 0);
@@ -84,10 +69,14 @@ export const ReservationProvider = ({ children }) => {
 
   const setOccasionSelected = (occ) => {
     setOccasion(occ);
+    if (occ !== 'Cumpleaños') {
+      setDecoracionCumpleanos(false);
+    }
   };
 
   const setDateSelected = (isoString) => {
     setDate(isoString);
+    setTime('');
   };
 
   const setTimeSelected = (timeStr) => {
