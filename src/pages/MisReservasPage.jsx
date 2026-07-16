@@ -9,6 +9,7 @@ export const MisReservasPage = () => {
   const [reservas, setReservas] = useState(null);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSearch = async (e) => {
@@ -16,8 +17,14 @@ export const MisReservasPage = () => {
     if (!phone.trim()) return;
     setLoading(true);
     setSearched(true);
-    const data = await fetchReservasByPhone(phone.trim());
-    setReservas(data);
+    setError(null);
+    try {
+      const data = await fetchReservasByPhone(phone.trim());
+      setReservas(data);
+    } catch (err) {
+      setError('Error al buscar reservas. Verifica tu conexión e intenta de nuevo.');
+      setReservas([]);
+    }
     setLoading(false);
   };
 
@@ -63,7 +70,18 @@ export const MisReservasPage = () => {
 
           {searched && !loading && (
             <div className="w-full mt-6">
-              {reservas.length === 0 ? (
+              {error ? (
+                <div className="text-center py-6">
+                  <span className="text-3xl block mb-2">⚠️</span>
+                  <p className="text-sm text-red-400">{error}</p>
+                  <button
+                    onClick={handleSearch}
+                    className="mt-4 text-xs text-gold-400 hover:underline cursor-pointer"
+                  >
+                    Reintentar
+                  </button>
+                </div>
+              ) : reservas.length === 0 ? (
                 <div className="text-center py-6">
                   <span className="text-3xl block mb-2">😕</span>
                   <p className="text-sm text-neutral-400">
