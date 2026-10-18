@@ -110,15 +110,14 @@ export const SummaryStep = () => {
             <p className="text-[10px] text-neutral-400 uppercase tracking-wider font-semibold">
               Datos para transferencia
             </p>
-            <div className="text-xs text-neutral-300 space-y-1">
-              <p>
-                <span className="text-gold-400 font-semibold">Nequi:</span> {PAYMENT_INFO.nequi}
+            <div className="text-xs text-neutral-300 space-y-1.5">
+              <p>Puedes hacer la transferencia a esta llave: 📲</p>
+              <p className="text-gold-300 font-bold text-base font-outfit tracking-widest">
+                0092875974
               </p>
               <p>
-                <span className="text-gold-400 font-semibold">Daviplata:</span> {PAYMENT_INFO.daviplata}
-              </p>
-              <p>
-                <span className="text-gold-400 font-semibold">Bancolombia:</span> {PAYMENT_INFO.bancolombia}
+                Aparece como:{' '}
+                <span className="text-gold-400 font-semibold">Los Compadres Rooftop</span>
               </p>
             </div>
             <p className="text-[10px] text-neutral-500 mt-2 leading-relaxed">
